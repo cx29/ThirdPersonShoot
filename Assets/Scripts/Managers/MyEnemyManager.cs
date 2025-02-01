@@ -20,8 +20,11 @@ namespace Managers
         private MyPlayerHealth _player;
         private List<ScoreType> _scroeArray;
         private MyScoreManager _scoreManager;
-
-        private void Start()
+        
+        /// <summary>
+        /// 启用的时候会运行，这样重复开始游戏都会进行以下操作
+        /// </summary>
+        private void OnEnable()
         {
             _player=GameObject.FindGameObjectWithTag("Player").GetComponent<MyPlayerHealth>();
             enemies = new List<GameObject>();
@@ -90,6 +93,14 @@ namespace Managers
             if (enemies.Count>0)
             {
                 enemies.RemoveAt(enemies.Count - 1);
+            }
+        }
+
+        public void ClearAllEnemies()
+        {
+            foreach (var enemy in enemies)
+            {
+                Destroy(enemy);
             }
         }
     }

@@ -23,7 +23,9 @@ namespace Player
         //标准颜色
         private Color hitColor = new(255f / 255f, 0 / 255f, 13 / 255f, 36 / 255f);
         private bool _isHit = false;
-        
+
+        private GameObject _gameUI;
+        public event Action OnPlayerDied;
         
             
         public bool IsDead => _isDead;
@@ -36,6 +38,9 @@ namespace Player
 
         private void Awake()
         {
+            _gameUI=GameObject.FindGameObjectWithTag("GameUI");
+            _healthText=_gameUI.transform.GetComponentInChildren<Text>();
+            _hitFill=_gameUI.transform.Find("Damage").GetComponent<Image>();
             _currHealth = health;
             _animator = GetComponent<Animator>();
             _hitFill.color = Color.clear;
@@ -74,8 +79,9 @@ namespace Player
         {
             _animator.SetTrigger(Dead);
             _isDead = true;
-            yield return new WaitForSeconds(2.0f);
             _hitFill.color = Color.Lerp(_hitFill.color, Color.clear, 0.5f * Time.deltaTime);
+            yield return new WaitForSeconds(4.0f);
+            OnPlayerDied?.Invoke();
             Destroy(gameObject);
         }
     }
