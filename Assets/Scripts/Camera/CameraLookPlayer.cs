@@ -7,6 +7,7 @@ public class CameraLookPlayer : MonoBehaviour
     private GameObject _player;
     private float smoothSpeed= 5f;
     private Vector3 offset;
+    private Vector3 _defaultPos;
 
     private void FixedUpdate()
     {
@@ -26,11 +27,13 @@ public class CameraLookPlayer : MonoBehaviour
     {
         _player = player;
         offset = transform.position -_player.transform.position;
+        _defaultPos =transform.position;
     }
 
     public void RemovePlayer()
     {
         _player = null;
         offset=Vector3.zero;
+        transform.position = _defaultPos;
     }
 }
