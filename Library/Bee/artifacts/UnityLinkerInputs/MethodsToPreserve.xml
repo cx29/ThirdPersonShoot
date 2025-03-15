@@ -1,0 +1,8 @@
+<linker>
+	<assembly fullname="Assembly-CSharp" ignoreIfMissing="1">
+		<type fullname="GameManager">
+			<method name="ShowScoreList"/>
+			<method name="StartGame"/>
+		</type>
+	</assembly>
+</linker>
